@@ -1,0 +1,56 @@
+Objective -  By the end of today, you will have a live product on the internet that can make you money.
+Show a working demo of the finished product — Existing LinkedIn Ghostwriter.
+Web OWASP - API Security
+
+Definitions:
+
+
+1. UI Components → shadcn/ui
+    What is it?
+
+    Ready-made, good-looking components you don't have to build from scratch.
+    Think of it like IKEA furniture.
+
+    You don't build a table from wood. You assemble a pre-made one. Same here — you don't build a button, dropdown, modal from zero. shadcn gives you those ready.
+    What it includes:
+    Button, Input, Card, Modal, Dropdown,
+    Tabs, Toast notifications, Form, Badge...
+    Why shadcn specifically?
+    Code lives in YOUR project (not a library)
+    You can edit it fully
+
+2. HTTP Client → Axios
+    What is it?
+    The tool your frontend uses to talk to your backend.
+    Think of it like a phone.
+    Your Next.js frontend needs to call your FastAPI backend and say "hey, generate a post." Axios is that phone call.
+    Without Axios your frontend and backend can't talk.
+
+3. State → React useState / useContext
+    User types in the input box
+    That text needs to be remembered somewhere
+    That's state
+
+    useContext — Global State
+    For sharing data across multiple pages/components.
+    Problem:
+    User logs in → their name needs to show in
+    → Navbar
+    → Dashboard
+    → Settings page
+    → Saved posts page
+
+
+Steps for saas application:
+
+1. Get claude API key
+2. Setup claude in terminal
+3. Setup claude in VS Code
+4. Create CLAUDE.md file
+5. Create PRD.md file
+6. .env.example
+7. TASKS.md
+8. Create a file which has all the installation steps
+9. Create requirements.txt file and Run
+10. Create a boilerplate code
+
