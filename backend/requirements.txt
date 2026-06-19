@@ -1,0 +1,9 @@
+# Web framework
+fastapi==0.111.0
+uvicorn[standard]==0.30.1
+
+# Data validation
+pydantic
+
+# OpenAI SDK (GPT-4o)
+openai==1.35.3

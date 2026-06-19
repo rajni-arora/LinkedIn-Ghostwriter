@@ -4,6 +4,18 @@
 
 ---
 
+## Design Reference
+
+Before building any frontend component, always read these reference files first:
+
+- `/reference/Sign in.html`         → auth page design patterns
+- `/reference/User persona.html`    → persona page layout and form styles
+- `/reference/Post Generator.html`  → main dashboard layout, sidebar, card styles, component patterns
+
+Match the visual style, spacing, color tokens, and component patterns from these files exactly. Do not deviate unless asked.
+
+---
+
 ## Project Overview
 
 **Product:** LinkedIn Ghost Writer — an AI-powered SaaS tool that helps founders, marketers, solopreneurs, and agencies write high-performing LinkedIn posts in seconds.
@@ -447,3 +459,12 @@ pip install -r requirements.txt
 cp .env.example .env         # fill in keys
 uvicorn main:app --reload    # http://localhost:8000
 ```
+
+---
+
+## Task Tracking
+
+- Always read `TASKS.md` at the start of every session to understand what has been completed and what is still pending.
+- After completing any task, immediately mark it `[x]` in `TASKS.md` — do not batch updates.
+- Before starting a new feature, add its subtasks to the relevant section of `TASKS.md` first.
+- Never start coding without checking `TASKS.md` first.

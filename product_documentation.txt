@@ -1,6 +1,22 @@
 Objective -  By the end of today, you will have a live product on the internet that can make you money.
 Show a working demo of the finished product — Existing LinkedIn Ghostwriter.
+
+Pending things:
+Ssh key adding in github account
 Web OWASP - API Security
+Ask question related to project
+run the fast API
+Check which libraries are left to install
+Add open ai api key
+Push all the changes 
+Check your sess if Existing
+Understand backend code
+when to update prd.md file
+
+Todo:
+Make ppt slides
+make content from videos - where ever required 
+
 
 Definitions:
 
@@ -46,11 +62,54 @@ Steps for saas application:
 1. Get claude API key
 2. Setup claude in terminal
 3. Setup claude in VS Code
+
+Install Git on your machine
+Create a new Repo on Github
+Run Bash commands in vs terminal - git init -> git add . -> ! git commit -m "Initial commit" -> ! git remote add origin https://github.com/rajni-arora/LinkedIn-Ghostwriter.git -> git push origin main
+
+
+Setup Ollama
+Goto ollama.com -> copy "curl -fsSL https://ollama.com/install.sh | sh" -> paste that to terminal for downloading(I was not able to download it thru URL in mac, now trying tru their website, now open from the application folder)
+/exit from the current claude session to work using ollama
+Explain about ollama models and its pricing / free version 
+Select qwen 3.5 model and explain why did you choose this and where it is saving the qwen downloaded model
+One popup window will open , click on the "connect" button
+
+
+Teach some slash commands:
+Benefits, where are we going to use
+Definitions
+Explain builtin and custom slash commands
+Already used /exit
+Explain about session
+claude -r = give you the past conversation (before writing claude to the terminal)
+/resume = to go one session to another
+Name your session immediately
+/rename "sess name" = to rename your session
+commit frequently within the session
+/btw = ask question in between
+/export file.md = to save your conversation history
+/logout = logout from claude code acc to switch between 2 acc, and it will ask again all the same questions , do before worshop starting
+/models = to select model and explai all the three models, also explain when to use which model
+/usage = explain 
+/extra-usage = explain
+/config = to edit the Settings
+/permission = Explain
+/voice = to enable voice 
+
+
 4. Create CLAUDE.md file
 5. Create PRD.md file
-6. .env.example
-7. TASKS.md
+6. .env.example - prompt -  Create .env.example files for both frontend and backend based on the environment variables defined in CLAUDE.md. Place them at /frontend/.env.example and /backend/.env.example with the correct keys but empty values.
+7. TASKS.md - prompt - Create a TASKS.md file in the project root. Scan the entire codebase — check all existing files, folders, and the project structure — and document every task that has already been completed. Format it as a checklist with [x] for done items, grouped by category (e.g. Setup, Frontend, Backend, Config). Keep descriptions short and accurate to what actually exists in the code.
+prompt for TASK.md = Update CLAUDE.md — add a new section called ## Task Tracking at the bottom. The rule should say: always read TASKS.md at the start of every session to understand what's been completed and what's pending. After completing any task, immediately update TASKS.md by marking it [x]. Before starting a new feature, add its subtasks to TASKS.md first. Never start coding without checking TASKS.md first.
 8. Create a file which has all the installation steps
-9. Create requirements.txt file and Run
+Update Claude.md with the Design reference prompt
 10. Create a boilerplate code
+Create a virtual env for this project = python3.14 -m venv LinkedInvenv -> cd LinkedInvenv -> source bin/activate -> python --version
+Create requirements.txt file and Run create a prompt for this -> pip install -r ../backend/requirements.txt
+create .gitignore folder and update the files what should be ignored -> Create a .gitignore file in the project root. Include all sensitive and unnecessary files for this project: .env, .env.local, .env.*.local, venv/, __pycache__/, *.pyc, .DS_Store, node_modules/, .next/, *.log, and any IDE/editor files like .vscode/ and .idea/. Make sure both frontend and backend sensitive files are covered.
+
+
+
 
