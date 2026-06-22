@@ -3,6 +3,10 @@
 .env.local
 .env.*.local
 
+# Claude Code
+.mcp.json
+.claude/
+
 # Next.js
 .next/
 out/
