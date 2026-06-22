@@ -23,6 +23,9 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
+# TypeScript
+*.tsbuildinfo
+
 # Logs
 *.log
 npm-debug.log*
