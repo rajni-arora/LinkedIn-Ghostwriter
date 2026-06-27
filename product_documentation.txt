@@ -13,12 +13,18 @@ Check your sess if Existing
 Understand backend code
 when to update prd.md file
 create a feature branch and later merge it with main
+create a git skill
+Commit one session one feature each time
+
 
 Todo:
 Make ppt slides
 make content from videos - where ever required 
 change your boilerplate code 
 Add voice feature
+Add prompts and enhance posts
+Securityslashes
+agents
 
 Definitions:
 

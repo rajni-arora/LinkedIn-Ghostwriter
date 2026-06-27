@@ -33,3 +33,7 @@ npm-debug.log*
 # IDE
 .vscode/
 .idea/
+
+# Workshop files
+Cross questions from Learners.md
+ghostwriter_workshop_script.md
