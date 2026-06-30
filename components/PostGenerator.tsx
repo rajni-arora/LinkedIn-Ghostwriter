@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react'
-import { Copy, Sparkles, Zap, Bookmark, Loader2, User } from 'lucide-react'
+import { useState, useRef } from 'react'
+import { Copy, Sparkles, Zap, Bookmark, Loader2, User, Crown, Check, LayoutGrid, Type, FileText, Smile } from 'lucide-react'
 import { toast } from 'sonner'
 
 const TONES = ['Authoritative', 'Conversational', 'Inspirational', 'Data-Driven', 'Storytelling']
@@ -128,12 +128,70 @@ function VariationCard({
   )
 }
 
-export default function PostGenerator({ persona }: { persona: Persona | null }) {
+const QUICK_EMOJIS = ['🚀', '💡', '🎯', '🔥', '✅', '💼', '📈', '🤝', '💪', '🌟', '⚡', '🧠']
+
+export default function PostGenerator({ persona, displayName }: { persona: Persona | null; displayName: string }) {
   const [topic, setTopic] = useState('')
   const [tone, setTone] = useState(persona?.preferred_tone ?? 'Conversational')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [variations, setVariations] = useState<PostVariation[]>([])
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false)
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
+
+  function insertAtCursor(text: string) {
+    const el = textareaRef.current
+    if (!el) return
+    const start = el.selectionStart
+    const end = el.selectionEnd
+    const newValue = topic.slice(0, start) + text + topic.slice(end)
+    setTopic(newValue)
+    requestAnimationFrame(() => {
+      el.focus()
+      el.setSelectionRange(start + text.length, start + text.length)
+    })
+  }
+
+  function handleBullet() {
+    const el = textareaRef.current
+    if (!el) return
+    const start = el.selectionStart
+    const lineStart = topic.lastIndexOf('\n', start - 1) + 1
+    const newValue = topic.slice(0, lineStart) + '• ' + topic.slice(lineStart)
+    setTopic(newValue)
+    requestAnimationFrame(() => { el.focus(); el.setSelectionRange(start + 2, start + 2) })
+  }
+
+  function handleCopyTopic() {
+    if (!topic) return
+    navigator.clipboard.writeText(topic)
+    toast.success('Topic copied!')
+  }
+
+  function handleBold() {
+    const el = textareaRef.current
+    if (!el) return
+    const start = el.selectionStart
+    const end = el.selectionEnd
+    const selected = topic.slice(start, end)
+    const wrapped = selected ? `**${selected}**` : '**bold**'
+    const newValue = topic.slice(0, start) + wrapped + topic.slice(end)
+    setTopic(newValue)
+    requestAnimationFrame(() => {
+      el.focus()
+      selected ? el.setSelectionRange(start, start + wrapped.length) : el.setSelectionRange(start + 2, start + 6)
+    })
+  }
+
+  function handleTemplate() {
+    setTopic('Hook: \nInsight: \nCTA: ')
+    requestAnimationFrame(() => {
+      const el = textareaRef.current
+      if (!el) return
+      el.focus()
+      el.setSelectionRange(6, 6)
+    })
+  }
 
   async function handleGenerate() {
     if (!topic.trim()) return
@@ -185,7 +243,7 @@ export default function PostGenerator({ persona }: { persona: Persona | null }) 
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 space-y-5">
           <div className="flex items-center gap-2">
             <Zap className="w-5 h-5 text-[#0077B5]" />
-            <h1 className="text-xl font-bold text-gray-900">Generate LinkedIn Posts</h1>
+            <h1 className="text-xl font-bold text-gray-900">Welcome back, {displayName} 👋</h1>
           </div>
 
           {/* Topic + character count */}
@@ -196,12 +254,61 @@ export default function PostGenerator({ persona }: { persona: Persona | null }) 
                 {topic.length} / {MAX_CHARS}
               </span>
             </div>
+
+            {/* Formatting toolbar */}
+            <div className="flex items-center gap-1 px-2 py-1.5 bg-gray-50 border border-gray-200 rounded-t-lg border-b-0">
+              {[
+                { icon: LayoutGrid, label: 'Bullet list', action: handleBullet },
+                { icon: Copy, label: 'Copy topic', action: handleCopyTopic },
+                { icon: Type, label: 'Bold', action: handleBold },
+                { icon: FileText, label: 'Insert template', action: handleTemplate },
+              ].map(({ icon: Icon, label, action }) => (
+                <button
+                  key={label}
+                  type="button"
+                  title={label}
+                  onClick={action}
+                  className="p-1.5 text-gray-400 hover:text-[#0077B5] hover:bg-white rounded transition-colors"
+                >
+                  <Icon className="w-4 h-4" />
+                </button>
+              ))}
+
+              {/* Emoji picker */}
+              <div className="relative">
+                <button
+                  type="button"
+                  title="Insert emoji"
+                  onClick={() => setShowEmojiPicker(v => !v)}
+                  className="p-1.5 text-gray-400 hover:text-[#0077B5] hover:bg-white rounded transition-colors"
+                >
+                  <Smile className="w-4 h-4" />
+                </button>
+                {showEmojiPicker && (
+                  <div className="absolute top-8 left-0 z-20 bg-white border border-gray-200 rounded-lg shadow-lg p-2 grid grid-cols-6 gap-1 w-40">
+                    {QUICK_EMOJIS.map(emoji => (
+                      <button
+                        key={emoji}
+                        type="button"
+                        onClick={() => { insertAtCursor(emoji); setShowEmojiPicker(false) }}
+                        className="text-base hover:bg-gray-100 rounded p-0.5 transition-colors"
+                      >
+                        {emoji}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+            </div>
+
             <textarea
+              ref={textareaRef}
               value={topic}
               onChange={e => setTopic(e.target.value)}
               rows={3}
               placeholder="e.g. Why most startup pitches fail in the first 30 seconds"
-              className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0077B5] focus:border-transparent resize-none transition"
+              className="w-full px-3 py-2.5 border border-gray-300 rounded-b-lg rounded-t-none text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0077B5] focus:border-transparent resize-none transition"
             />
           </div>
 

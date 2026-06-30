@@ -6,6 +6,23 @@
 
 ---
 
+## IMPORTANT — Rule for Claude Code
+
+> **Before building any new feature, Claude Code must follow this rule:**
+>
+> 1. Check if the requested feature exists in the **MVP Scope** section of this PRD
+> 2. If the feature is **NOT listed** in MVP Scope → **STOP. Do not build it.**
+>    Instead, say:
+>    *"This feature is not in the PRD. Please update PRD.md first — add it to the MVP Scope section with a description of what it should do. Once the PRD is updated, I will build it."*
+> 3. If the feature **IS listed** in MVP Scope → go ahead and build it
+> 4. If the feature is listed under **Out of Scope** → **STOP. Do not build it.**
+>    Instead, say:
+>    *"This feature is marked Out of Scope in the PRD. If you want to add it, first move it to the In Scope section in PRD.md and describe the requirements. Then I will build it."*
+>
+> **No exceptions. PRD.md is the single source of truth for what gets built.**
+
+---
+
 ## 1. Problem Statement
 
 LinkedIn professionals — founders, marketers, consultants, executives — know they should post consistently on LinkedIn. They don't. Writing takes too long, they don't know what to say, and they're not confident the post will actually perform.
@@ -69,9 +86,46 @@ The result: inconsistent posting, low engagement, missed visibility.
 - Animated gradient background on auth pages
 - LinkedInWrites branding + logo
 
+- Topic textarea formatting toolbar with 6 quick-action buttons
+- Influencer Tracking button in sidebar (disabled — coming soon)
+- Publish to LinkedIn button in sidebar (disabled — coming soon)
+
+### Formatting Toolbar — Feature Spec
+
+A compact toolbar displayed above the topic textarea on the `/generate` page. Provides 6 quick-action buttons to help users write and enrich their post topic before generating.
+
+| Icon | Action | Behaviour |
+|---|---|---|
+| Grid (⊞) | Insert bullet list | Inserts a `•` bullet at the start of a new line in the textarea |
+| Copy (⧉) | Copy topic text | Copies current textarea content to clipboard → toast "Topic copied!" |
+| Text (T) | Bold formatting | Wraps selected text in `**bold**` markers; if no selection, inserts `**bold**` placeholder |
+| Document (📄) | Insert template | Inserts a starter post structure: `Hook:\nInsight:\nCTA:` into the textarea |
+| Sticker (🖼) | Insert emoji sticker | Opens a small inline emoji picker with 12 common LinkedIn-style emojis to insert at cursor |
+| Smiley (🙂) | Insert smiley emoji | Inserts 😊 at the cursor position in the textarea |
+
+**Design:**
+- Toolbar sits directly above the topic textarea, right-aligned
+- Icons are `16×16`, gray (`text-gray-400`), hover turns LinkedIn blue (`#0077B5`)
+- Separated from the textarea label by a small gap
+- No labels — icons only, with tooltip on hover
+
+### Influencer Tracking Button — Feature Spec
+
+A disabled "Influencer Tracking" button placed in the sidebar above the user menu (bottom-left area).
+
+| Element | Detail |
+|---|---|
+| Label | "Influencer Tracking" |
+| Icon | `Users` (lucide-react) |
+| Position | Sidebar, above the UserMenu component |
+| State | Disabled — not clickable |
+| Style | Grayed out (`text-gray-400`, `cursor-not-allowed`) with a "Coming Soon" badge/pill next to the label |
+
+**Purpose:** Placeholder for a future feature that will let users track top LinkedIn influencers in their industry, see their posts, and repurpose content.
+
 ### Out of Scope (v1)
 - Social login (Google, LinkedIn OAuth)
-- Direct publish to LinkedIn
+- Direct publish to LinkedIn (shown as upcoming feature button in sidebar)
 - Post scheduling
 - Team / agency accounts
 - Post analytics and performance tracking
@@ -363,7 +417,44 @@ Response: { variations: [{ postText, viralityScore, viralityRationale }] }
 
 ---
 
-## 11. Success Metrics (Post-Launch)
+## 11. Environment Variables
+
+All secret keys are stored in environment files — never hardcoded in the code.
+
+### Keys Required
+
+| Variable | Used For | Exposed to Browser? |
+|---|---|---|
+| `OPENAI_API_KEY` | Calling GPT-4o to generate posts | ❌ No — server only |
+| `NEXT_PUBLIC_SUPABASE_URL` | Address of Supabase project | ✅ Yes — safe |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Password to access Supabase | ✅ Yes — safe |
+
+### Two Files — Two Purposes
+
+| File | Values | Push to GitHub? |
+|---|---|---|
+| `.env.example` | Empty — template only | ✅ Yes — safe to share |
+| `.env.local` | Real keys filled in | ❌ No — in .gitignore |
+
+### .env.example (what it looks like)
+```
+# OpenAI — used for AI post generation (server-side only)
+OPENAI_API_KEY=
+
+# Supabase — used for auth and database
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+```
+
+### How to Set Up
+1. Copy `.env.example` → rename to `.env.local`
+2. Fill in your real keys in `.env.local`
+3. Add same keys to Vercel → Project → Environment Variables before deploying
+4. Never commit `.env.local` to GitHub
+
+---
+
+## 12. Success Metrics (Post-Launch)
 
 - User completes full flow (signup → persona → generate → save) in under 5 minutes
 - At least 1 post saved per active user per session

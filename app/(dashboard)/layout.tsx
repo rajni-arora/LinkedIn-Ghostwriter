@@ -1,7 +1,7 @@
-import Image from 'next/image'
-import SignOutButton from '@/components/auth/SignOutButton'
 import SidebarNav from '@/components/dashboard/SidebarNav'
+import UserMenu from '@/components/dashboard/UserMenu'
 import { createClient } from '@/lib/supabase/server'
+import { Users, Send } from 'lucide-react'
 
 function getInitials(firstName?: string, lastName?: string, email?: string): string {
   if (firstName && lastName) return `${firstName[0]}${lastName[0]}`.toUpperCase()
@@ -28,24 +28,23 @@ export default async function DashboardLayout({ children }: { children: React.Re
     <div className="flex min-h-screen bg-[#F3F2EF]">
       {/* Sidebar */}
       <aside className="w-60 bg-white border-r border-gray-200 flex flex-col fixed h-full z-10">
-        {/* Logo */}
-        <div className="px-5 py-4 border-b border-gray-100">
-          <Image src="/logo.png" alt="LinkedInWrites" width={150} height={50} />
-        </div>
-
         {/* Nav links */}
         <SidebarNav />
 
-        {/* User avatar + Logout */}
-        <div className="px-3 py-4 border-t border-gray-100 space-y-2">
-          <div className="flex items-center gap-3 px-4 py-2">
-            <div className="w-8 h-8 rounded-full bg-[#0077B5] flex items-center justify-center shrink-0">
-              <span className="text-white text-xs font-bold">{initials}</span>
-            </div>
-            <span className="text-xs text-gray-600 truncate">{displayName}</span>
-          </div>
-          <SignOutButton />
+        {/* Upcoming features */}
+        <div className="px-3 pb-2 space-y-2">
+          <p className="text-xs font-bold text-gray-500 uppercase tracking-wider px-1 mb-1">Upcoming Feature</p>
+          <button className="flex items-center justify-center gap-2 w-full px-4 py-2.5 bg-[#0077B5] text-white text-sm font-semibold rounded-lg">
+            <Users className="w-4 h-4" />
+            Influencer Tracking
+          </button>
+          <button className="flex items-center justify-center gap-2 w-full px-4 py-2.5 bg-[#0077B5] text-white text-sm font-semibold rounded-lg">
+            <Send className="w-4 h-4" />
+            Publish to LinkedIn
+          </button>
         </div>
+
+        <UserMenu displayName={displayName} initials={initials} />
       </aside>
 
       {/* Main content */}

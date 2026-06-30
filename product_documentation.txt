@@ -25,44 +25,15 @@ Add voice feature
 Add prompts and enhance posts
 Securityslashes
 agents
+### Skills creation — the `linkedin-post-style` skill
 
-Definitions:
 
+### Subagents creation — Writer & Reviewer
 
-1. UI Components → shadcn/ui
-    What is it?
+> 🔒 **Hard constraint — human-in-the-loop:** *"The AI proposes; the human approves. We never let agents auto-publish to a real person's LinkedIn without a human saying yes. That's a non-negotiable safety rule, and it's also just good product design."*
 
-    Ready-made, good-looking components you don't have to build from scratch.
-    Think of it like IKEA furniture.
+**[ASK]** *"Why do you think we insist a human approves before anything goes out? ... Exactly — AI can be confidently wrong, and your name is on the post. Trust, but verify."*
 
-    You don't build a table from wood. You assemble a pre-made one. Same here — you don't build a button, dropdown, modal from zero. shadcn gives you those ready.
-    What it includes:
-    Button, Input, Card, Modal, Dropdown,
-    Tabs, Toast notifications, Form, Badge...
-    Why shadcn specifically?
-    Code lives in YOUR project (not a library)
-    You can edit it fully
-
-2. HTTP Client → Axios
-    What is it?
-    The tool your frontend uses to talk to your backend.
-    Think of it like a phone.
-    Your Next.js frontend needs to call your FastAPI backend and say "hey, generate a post." Axios is that phone call.
-    Without Axios your frontend and backend can't talk.
-
-3. State → React useState / useContext
-    User types in the input box
-    That text needs to be remembered somewhere
-    That's state
-
-    useContext — Global State
-    For sharing data across multiple pages/components.
-    Problem:
-    User logs in → their name needs to show in
-    → Navbar
-    → Dashboard
-    → Settings page
-    → Saved posts page
 
 
 Steps for saas application:

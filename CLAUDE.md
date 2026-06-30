@@ -1,5 +1,17 @@
 # CLAUDE.md — LinkedInWrites
 
+## PRD Rule — Read Before Building Anything
+
+> **Every feature request must be checked against PRD.md first.**
+>
+> - Feature is in PRD **In Scope** → build it
+> - Feature is **NOT in PRD** → stop and say: *"This feature is not in the PRD. Update PRD.md first, then I will build it."*
+> - Feature is in PRD **Out of Scope** → stop and say: *"This feature is marked Out of Scope. Move it to In Scope in PRD.md first."*
+>
+> PRD.md is the single source of truth. No feature gets built without being in the PRD first.
+
+---
+
 ## Project Overview
 
 **LinkedInWrites** is a LinkedIn AI Post Generator SaaS. Users sign up, set up a persona once (role, industry, audience, tone), then generate AI-written LinkedIn posts on any topic. The AI returns 3 post variations each with a virality score. Users can save posts to a personal dashboard and view them anytime.

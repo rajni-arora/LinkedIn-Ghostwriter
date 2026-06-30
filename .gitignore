@@ -37,3 +37,9 @@ npm-debug.log*
 # Workshop files
 Cross questions from Learners.md
 ghostwriter_workshop_script.md
+
+# Reference folder
+reference/
+
+# Product docs
+product_documentation.txt

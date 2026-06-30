@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import { Sparkles, FileText, User } from 'lucide-react'
 
 const links = [
-  { href: '/generate', label: 'Generate Posts', icon: Sparkles },
+  { href: '/generate', label: 'Write a Post', icon: Sparkles },
   { href: '/persona', label: 'My Persona', icon: User },
   { href: '/saved', label: 'Saved Posts', icon: FileText },
 ]

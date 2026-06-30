@@ -1,11 +1,9 @@
-import Image from 'next/image'
 import SignupForm from '@/components/auth/SignupForm'
 
 export default function SignupPage() {
   return (
     <>
       <div className="mb-6 text-center">
-        <Image src="/logo.png" alt="LinkedInWrites" width={200} height={80} className="mx-auto mb-3" />
         <p className="text-white text-base font-normal opacity-90">Make the most of your professional life</p>
       </div>
 
